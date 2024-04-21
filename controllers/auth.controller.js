@@ -18,7 +18,6 @@ export const register = async (req, res) => {
 
     return res.status(201).json({ message: "User has been created" });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ message: "Failed to create User" });
   }
 };
@@ -44,11 +43,10 @@ export const login = async (req, res) => {
     const { password: userPassword, ...userInfo } = user;
 
     return res
-      .cookie("token", token, { maxAge: age, httpOnly: true })
+      .cookie("token", token, { maxAge: age, httpOnly: true, sameSite: false })
       .status(200)
       .json(userInfo);
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ message: "Failed to Login" });
   }
 };
